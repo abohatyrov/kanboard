@@ -26,16 +26,13 @@
         "ext-ctype": "*",
         "ext-filter": "*",
         "ext-session": "*",
-        "ext-pcov": "*",
         "christian-riesen/otp": "1.4.3",
         "erusev/parsedown": "1.7.4",
         "pimple/pimple": "3.5.0",
         "psr/log": "1.1.4",
         "symfony/console": "4.4.37",
         "symfony/event-dispatcher": "4.4.37",
-        "symfony/finder": "5.4.21",
-        "nikic/php-parser": "4.10.5",
-        "symfony/process": "4.4.37"
+        "symfony/finder": "5.4.21"
     },
     "autoload": {
         "classmap": [
