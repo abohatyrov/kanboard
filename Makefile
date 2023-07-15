@@ -13,7 +13,7 @@ test-sqlite:
 	@ ./vendor/bin/phpunit -c tests/units.sqlite.xml
 
 test-mysql:
-	@ ./vendor/bin/phpunit -c tests/units.mysql.xml
+	@ ./vendor/bin/phpunit --verbose -c tests/units.mysql.xml
 
 test-postgres:
 	@ ./vendor/bin/phpunit -c tests/units.postgres.xml
