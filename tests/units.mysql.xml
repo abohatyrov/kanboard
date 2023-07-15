@@ -6,6 +6,6 @@
     </testsuites>
     <php>
         <const name="DB_DRIVER" value="mysql" />
-        <const name="DB_NAME" value="kanboard_unit_test" />
+        <const name="DB_NAME" value="kanboard_test" />
     </php>
 </phpunit>
