@@ -1,7 +1,7 @@
 pipeline {
     agent "Kanboard Build"
     environment {
-        VERSION = $(shell git rev-parse --short HEAD)
+        VERSION = $(git rev-parse --short HEAD)
     }
     stages {
         stage ("Install Dependencies") {
