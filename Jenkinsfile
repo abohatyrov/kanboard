@@ -1,5 +1,5 @@
 pipeline {
-    agent "Kanboard Build"
+    agent { label "Kanboard Build" }
     environment {
         VERSION = "fe91f0611"
     }
