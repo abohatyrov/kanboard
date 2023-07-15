@@ -7,8 +7,6 @@ pipeline {
         stage ("Install Dependencies") {
             steps {
                 sh 'php -v'
-                sh 'curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer'
-                sh 'cd $WORKSPACE && composer install --no-progress'
                 sh "composer install --ignore-platform-reqs --no-scripts --no-dev --no-interaction --no-progress"
                 sh "composer update --ignore-platform-reqs --no-scripts --no-dev --no-interaction --no-progress"
                 sh "composer dump-autoload --optimize --no-interaction"
