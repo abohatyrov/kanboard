@@ -7,7 +7,7 @@
     <php>
         <const name="DB_DRIVER" value="mysql" />
         <const name="DB_NAME" value="kanboard_test" />
-        <const name="DB_HOST" value="10.26.0.39" />
+        <const name="DB_HOSTNAME" value="10.26.0.39" />
         <const name="DB_USERNAME" value="kanboard" />
         <const name="DB_PASSWORD" value="kanboard" />
     </php>
