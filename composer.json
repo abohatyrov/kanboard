@@ -26,6 +26,7 @@
         "ext-ctype": "*",
         "ext-filter": "*",
         "ext-session": "*",
+        "ext-pcov": "*",
         "christian-riesen/otp": "1.4.3",
         "erusev/parsedown": "1.7.4",
         "pimple/pimple": "3.5.0",
