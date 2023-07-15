@@ -16,8 +16,8 @@ pipeline {
         stage ("Run Tests") {
             steps {
                 echo 'Running PHPUnit tests...'
-                sh 'php $WORKSPACE/vendor/bin/phpunit -c tests/units.mysql.xml --coverage-html $WORKSPACE/report/clover --coverage-clover $WORKSPACE/report/clover.xml --log-junit $WORKSPACE/report/junit.xml'
-                sh 'chmod -R a+w $PWD && chmod -R a+w $WORKSPACE'
+                sh 'php ./vendor/bin/phpunit -c tests/units.mysql.xml --coverage-html ./report/clover --coverage-clover ./report/clover.xml --log-junit ./report/junit.xml'
+                sh 'chmod -R a+w $PWD && chmod -R a+w .'
                 junit 'report/*.xml'}
         }
 
