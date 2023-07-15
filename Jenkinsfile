@@ -15,7 +15,7 @@ pipeline {
         }
 
         stage ("Make arcihve") {
-            sh "git archive --format=zip --prefix=kanboard/ $(VERSION) -o kanboard-$(VERSION).zip"
+            sh "git archive --format=zip --prefix=kanboard/ ${VERSION} -o kanboard-${VERSION}.zip"
         }
     }
 }
