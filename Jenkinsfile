@@ -7,8 +7,8 @@ pipeline {
         stage ("Install Dependencies") {
             steps {
                 sh 'php -v'
-                sh "composer install --ignore-platform-reqs --no-scripts --no-dev --no-interaction --no-progress"
-                sh "composer update --ignore-platform-reqs --no-scripts --no-dev --no-interaction --no-progress"
+                sh "composer install"
+                sh "composer update"
                 sh "composer dump-autoload --optimize --no-interaction"
             }
         }
