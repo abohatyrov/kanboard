@@ -1,16 +1,8 @@
 pipeline {
     agent {
         kubernetes {
-            yaml """
-            spec:
-                containers:
-                - name: php
-                  image: php:latest
-                  command:
-                  - sleep
-                  args:
-                  - 30d
-            """
+            label 'kanboard'
+            yamlFile 'build-pod.yaml'
         }
     }
 
