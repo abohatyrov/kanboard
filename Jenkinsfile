@@ -1,8 +1,6 @@
 pipeline {
     agent {
         kubernetes {
-            label 'kanboard'
-            defaultContainer 'jnlp'
             yaml """
             spec:
                 containers:
