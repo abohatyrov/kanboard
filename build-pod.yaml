@@ -5,6 +5,5 @@ spec:
     - name: php
       image: php:8.2-cli
       command: 
-      - php -v
-      - sleep
+      - php -v && sleep
       args: ["30d"]
