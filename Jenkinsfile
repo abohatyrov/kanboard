@@ -20,12 +20,12 @@ pipeline {
             }
         }
         
-        stage('Install dependencies') {
-            steps {
+        // stage('Install dependencies') {
+        //     steps {
                 
-                sh 'composer install'
-            }
-        }
+        //         sh 'composer install'
+        //     }
+        // }
 
         // stage('Run tests') {
         //     steps {
