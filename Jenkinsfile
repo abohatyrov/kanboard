@@ -2,6 +2,7 @@ pipeline {
     agent {
         kubernetes {
             yamlFile 'build-pod.yaml'
+            defaultContainer 'php'
         }
     }
 
@@ -14,7 +15,7 @@ pipeline {
 
     stages {
         stage('Get a PHP image') {
-            container('php') {
+            steps {
                 sh 'php --version'
             }
         }
