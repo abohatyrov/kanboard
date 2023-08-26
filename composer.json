@@ -32,7 +32,8 @@
         "psr/log": "1.1.4",
         "symfony/console": "4.4.37",
         "symfony/event-dispatcher": "4.4.37",
-        "symfony/finder": "5.4.21"
+        "symfony/finder": "5.4.21",
+        "mysql/mysql-connector-php": "8.0.27"
     },
     "autoload": {
         "classmap": [

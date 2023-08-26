@@ -1,31 +1,51 @@
 pipeline {
-    agent { label "Kanboard Build" }
+    podTemplate(containers: [
+    containerTemplate(
+        name: 'php', 
+        image: 'php:latest', 
+        command: 'sleep', 
+        args: '30d'
+        )
+    ]) {
+
     environment {
-        VERSION = "fe91f0611"
+        DOCKER_REGISTRY = "kanboard.azurecr.io"
+        DOCKER_REGISTRY_CREDENTIALS = "azure-credentials"
+        DOCKER_IMAGE = "kanboard"
     }
-    stages {
-        stage ("Install Dependencies") {
-            steps {
-                sh 'php -v'
-                sh "composer install --ignore-platform-reqs --no-scripts --no-dev --no-interaction --no-progress"
-                sh "composer update"
-                sh "composer dump-autoload --optimize --no-interaction"
+
+    node(POD_LABEL) {
+        def app
+
+        stage('Get a PHP image') {
+            container('php') {
+                sh 'php --version'
+            }
+        }
+        
+        stage('Install dependencies') {
+            container('php') {
+                sh 'composer install'
             }
         }
 
-        stage ("Run Tests") {
-            steps {
-                echo 'Running PHPUnit tests...'
-                sh 'php $WORKSPACE/vendor/bin/phpunit -c tests/units.mysql.xml --coverage-text --log-junit $WORKSPACE/report/junit.xml'
-                sh 'chmod -R a+w $PWD && chmod -R a+w $WORKSPACE'
-                junit 'report/*.xml'
+        // stage('Run tests') {
+        //     container('php') {
+        //         sh 'make test-mysql'
+        //     }
+        // }
+
+        stage('Build and push image') {
+            container('php') {
+                app = docker.build("${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE}")
+                docker.withRegistry('https://${env.DOCKER_REGISTRY}', '${env.DOCKER_REGISTRY_CREDENTIALS}') {
+                    app.push(${env.BUILD_NUMBER})
+                    app.push('latest')
+                }
             }
         }
 
-        stage ("Make arcihve") {
-            steps {
-                sh "git archive --format=zip --prefix=kanboard/ ${VERSION} -o kanboard-${VERSION}.zip"
-            }
-        }
+
     }
+}
 }
