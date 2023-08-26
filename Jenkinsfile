@@ -1,3 +1,5 @@
+def app
+
 pipeline {
     agent {
         kubernetes {
