@@ -14,7 +14,7 @@ pipeline {
 
     stages {
         stage('Get a PHP image') {
-            steps {
+            container('php') {
                 sh 'php --version'
             }
         }
