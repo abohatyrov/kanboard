@@ -17,6 +17,8 @@ pipeline {
         stage('Get a Docker version') {
             steps {
                 sh 'docker --version'
+                sh 'ls -l /var/run/docker.sock'
+                
             }
         }
         
