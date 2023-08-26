@@ -14,9 +14,9 @@ pipeline {
     }
 
     stages {
-        stage('Get a PHP image') {
+        stage('Get a Docker version') {
             steps {
-                sh 'php --version'
+                sh 'docker --version'
             }
         }
         
