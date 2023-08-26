@@ -1,5 +1,3 @@
-def app
-
 pipeline {
     agent {
         kubernetes {
@@ -22,6 +20,7 @@ pipeline {
         DOCKER_REGISTRY = "kanboard.azurecr.io"
         DOCKER_REGISTRY_CREDENTIALS = "azure-credentials"
         DOCKER_IMAGE = "kanboard"
+        app = ''
     }
 
     stages {
