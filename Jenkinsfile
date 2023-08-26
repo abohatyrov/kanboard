@@ -43,8 +43,6 @@ pipeline {
 
         stage('Build and push image') {
             steps {
-                def app
-                
                 app = docker.build("${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE}")
                 docker.withRegistry('https://${env.DOCKER_REGISTRY}', '${env.DOCKER_REGISTRY_CREDENTIALS}') {
                     app.push(${env.BUILD_NUMBER})
