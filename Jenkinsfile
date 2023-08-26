@@ -44,11 +44,12 @@ pipeline {
 
         stage('Build and push image') {
             steps {
-                docker.build("${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE}")
-                docker.withRegistry('https://${env.DOCKER_REGISTRY}', '${env.DOCKER_REGISTRY_CREDENTIALS}') {
-                    docker.image("${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE}").push("${env.BUILD_NUMBER}")
-                    image.push(${env.BUILD_NUMBER})
-                    docker.image("${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE}").push("latest")
+                script {
+                    def app = docker.build("${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE}")
+                    docker.withRegistry('https://${env.DOCKER_REGISTRY}', '${env.DOCKER_REGISTRY_CREDENTIALS}') {
+                        app.push(${env.BUILD_NUMBER})
+                        app.push('latest')
+                    }
                 }
             }
         }
