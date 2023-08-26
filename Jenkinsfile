@@ -1,7 +1,6 @@
 pipeline {
     agent {
         kubernetes {
-            label 'kanboard'
             yamlFile 'build-pod.yaml'
         }
     }
