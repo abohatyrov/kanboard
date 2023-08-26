@@ -20,7 +20,7 @@ pipeline {
         DOCKER_REGISTRY = "kanboard.azurecr.io"
         DOCKER_REGISTRY_CREDENTIALS = "azure-credentials"
         DOCKER_IMAGE = "kanboard"
-        app = ''
+        app = ""
     }
 
     stages {
@@ -44,7 +44,7 @@ pipeline {
 
         stage('Build and push image') {
             steps {
-                app = docker.build("${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE}")
+                def app = docker.build("${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE}")
                 docker.withRegistry('https://${env.DOCKER_REGISTRY}', '${env.DOCKER_REGISTRY_CREDENTIALS}') {
                     app.push(${env.BUILD_NUMBER})
                     app.push('latest')
