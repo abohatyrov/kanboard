@@ -4,9 +4,9 @@ spec:
   containers:  # list of containers that you want present for your build, you can define a default container in the Jenkinsfile
     - name: docker
       image: docker:latest
-      command: 
-      - sleep
-      args: ["30d"]
+      command:
+        - cat
+      tty: true
       volumeMounts:
       - name: docker-sock
         mountPath: /var/run/docker.sock
