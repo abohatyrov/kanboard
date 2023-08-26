@@ -3,7 +3,7 @@ kind: Pod
 spec:
   containers:  # list of containers that you want present for your build, you can define a default container in the Jenkinsfile
     - name: php
-      image: php:8.2-cli
+      image: composer:latest
       command: 
       - sleep
       args: ["30d"]
