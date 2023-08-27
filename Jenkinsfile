@@ -47,16 +47,5 @@ pipeline {
                 }
             }
         }  
-
-        stage ('Deploy_K8S') {
-            steps {
-                container('argocd') {
-                    withCredentials([string(credentialsId: "argocd-deploy-role", variable: 'ARGOCD_AUTH_TOKEN')]) {
-                        sh 'argocd app sync ${env.APP_NAME} --auth-token ${env.ARGOCD_AUTH_TOKEN} --grpc-web ${env.ARGOCD_SERVER}'
-                        sh 'argocd app wait ${env.APP_NAME} --auth-token ${env.ARGOCD_AUTH_TOKEN} --grpc-web ${env.ARGOCD_SERVER}'
-                    }
-                }
-            }
-        }
     }
 }
