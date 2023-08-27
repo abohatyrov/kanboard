@@ -41,6 +41,12 @@ spec:
           mountPath: /var/lib/docker
         - name: dind-certs
           mountPath: /certs
+    - name: tests
+      image: kanboard/tests:latest
+      command:
+        - sleep
+      args:
+        - infinity
     # - name: jnlp
     #   image: jenkins/jnlp-slave:4.13.3-1-jdk11
   volumes:

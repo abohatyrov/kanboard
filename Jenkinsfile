@@ -23,18 +23,14 @@ pipeline {
             }
         }
         
-        // stage('Install dependencies') {
-        //     steps {
-                
-        //         sh 'composer install'
-        //     }
-        // }
 
-        // stage('Run tests') {
-        //     steps {
-        //         sh 'make test-mysql'
-        //     }
-        // }
+        stage('Run tests') {
+            steps {
+                container('tests') {
+                    sh 'make test-mysql'
+                }
+            }
+        }
 
         stage('Build and push image') {
             steps {
