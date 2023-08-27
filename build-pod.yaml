@@ -1,20 +1,112 @@
-apiVersion: v1
-kind: Pod
-spec:
-  containers:  # list of containers that you want present for your build, you can define a default container in the Jenkinsfile
-    - name: docker
-      image: docker:latest
-      command:
-        - cat
-      tty: true
-      volumeMounts:
-      - name: docker-sock
-        mountPath: /var/run/docker.sock
-    
-    - name: jnlp
-      image: jenkins/jnlp-slave:4.13.3-1-jdk11
+---
+jenkins:
+  clouds:
+  - kubernetes:
+      connectTimeout: 5
+      # These variables must be present in the environment in order for the
+      # Jenkins agents to "find" the Jenkins master once they are launched,
+      # such that they may bootstrap.
+      jenkinsUrl: "http://${JENKINS_SERVICE_HOST}:${JENKINS_SERVICE_PORT}"
+      maxRequestsPerHostStr: "32"
+      name: "kubernetes"
+      readTimeout: 15
+      skipTlsVerify: true
+      templates:
+      # The "docker" container allows for the building and validation of
+      # Docker containers on top of the existing kubernetes cluster without
+      # requiring the kubernetes cluster to expose access to its docker socket
+      - containers:
+        - args: "cat"
+          command: "/bin/sh -c"
+          envVars:
+          - envVar:
+              key: 'DOCKER_HOST'
+              value: 'tcp://localhost:2376'
+          - envVar:
+              key: "DOCKER_TLS_CERTDIR"
+              value: "/certs"
+          - envVar:
+              key: "DOCKER_CERT_PATH"
+              value: "/certs/client"
+          - envVar:
+              key: "DOCKER_TLS_VERIFY"
+              value: "1"
+          image: 'docker:stable'
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "docker"
+          ttyEnabled: true
+        - alwaysPullImage: true
+          envVars:
+          - envVar:
+              key: "DOCKER_TLS_CERTDIR"
+              value: "/certs"
+          image: 'docker:dind'
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: 'dind'
+          privileged: true
+          ttyEnabled: true
+        # The jenkins-agent image is required in order to have a Jenkins agent
+        # which can access resources like git.lo, etc.
+        #
+        # It is basically a jenkins agent image with our root certificate
+        # bundled into it
+        - args: "^${computer.jnlpmac} ^${computer.name}"
+          command: ""
+          image: "jenkins/inbound-agent:latest"
+          alwaysPullImage: true
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          # The name "jnlp" is special and required in order to override the
+          # built in container which the Kubernetes pod launches.
+          name: "jnlp"
+          ttyEnabled: true
+        label: 'docker'
+        name: 'docker'
+        volumes:
+        - emptyDirVolume:
+            memory: false
+            mountPath: '/var/lib/docker'
+        - emptyDirVolume:
+            memory: false
+            mountPath: "/certs"
+        workspaceVolume:
+          emptyDirWorkspaceVolume:
+            memory: false
 
-  volumes:
-    - name: docker-sock
-      hostPath:
-        path: /var/run/docker.sock
+# apiVersion: v1
+# kind: Pod
+# spec:
+#   containers:  # list of containers that you want present for your build, you can define a default container in the Jenkinsfile
+#     - name: docker
+#       image: docker:latest
+#       command:
+#         - cat
+#       tty: true
+#       env:
+#         - name: DOCKER_HOST
+#           value: tcp://localhost:2375
+#       volumeMounts:
+#       - name: docker-sock
+#         mountPath: /var/run/docker.sock
+    
+#     - name: jnlp
+#       image: jenkins/jnlp-slave:4.13.3-1-jdk11
+
+#   volumes:
+#     - name: docker-sock
+#       hostPath:
+#         path: /var/run/docker.sock

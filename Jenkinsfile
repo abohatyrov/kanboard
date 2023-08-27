@@ -17,8 +17,6 @@ pipeline {
         stage('Get a Docker version') {
             steps {
                 sh 'docker --version'
-                sh 'docker -H 0.0.0.0:2375 -d &'
-
             }
         }
         
