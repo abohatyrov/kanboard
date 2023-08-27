@@ -70,13 +70,13 @@ define('DB_RUN_MIGRATIONS', true);
 define('DB_DRIVER', 'mysql');
 
 // Database username
-define('DB_USERNAME', 'kanboard');
+define('DB_USERNAME', 'kanboardadmin');
 
 // Database password
-define('DB_PASSWORD', 'kanboard');
+define('DB_PASSWORD', 'AndreyFG0713!');
 
 // Database hostname
-define('DB_HOSTNAME', 'localhost');
+define('DB_HOSTNAME', 'kanboard-mysql.mysql.database.azure.com');
 
 // Database database name
 define('DB_NAME', 'kanboard');
