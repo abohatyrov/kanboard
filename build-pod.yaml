@@ -36,7 +36,7 @@ spec:
         - name: dind-certs
           mountPath: /certs
     - name: jnlp
-      image: jenkins/inbound-agent:latest
+      image: jenkins/jnlp-slave:latest
   volumes:
     - name: dind-storage
       emptyDir: {}
