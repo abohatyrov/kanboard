@@ -1,7 +1,7 @@
 pipeline {
     agent {
         kubernetes {
-            yamlFile 'build-pod.yaml'
+            yamlFile 'k8s/build-pod.yaml'
             defaultContainer 'docker'
         }
     }
@@ -42,6 +42,17 @@ pipeline {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    kubernetesDeploy(configs: 
+                        "k8s/deployment.yaml",
+                        "k8s/service.yaml",
+                    )
                 }
             }
         }

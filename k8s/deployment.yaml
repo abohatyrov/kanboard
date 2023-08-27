@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kanboard-app
+  labels:
+    app: kanboard
+  namespace: kanboard-stage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kanboard
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 20%
+  template:
+    metadata:
+      labels:
+        app: kanboard
+    spec:
+      containers:
+      - name: kanboard-app
+        image: kanboard.azurecr.io/kanboard:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
