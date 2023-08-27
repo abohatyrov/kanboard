@@ -45,13 +45,5 @@ pipeline {
                 }
             }
         }
-
-        stage('Deploy to Kubernetes') {
-            agent any
-            steps {
-                sh "kubectl apply -f k8s/deployment.yaml"
-                sh "kubectl apply -f k8s/service.yaml"
-            }
-        }
     }
 }
