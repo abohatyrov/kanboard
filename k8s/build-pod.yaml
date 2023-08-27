@@ -42,7 +42,7 @@ spec:
         - name: dind-certs
           mountPath: /certs
     - name: tests
-      image: jitesoft/phpunit:latest
+      image: kanboard/tests:latest
       command:
         - sleep
       args:
