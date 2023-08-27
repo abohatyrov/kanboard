@@ -51,7 +51,6 @@ pipeline {
                 step([$class: 'KubernetesEngineBuilder', \
                   manifestPattern: 'k8s/deployment.yaml', \
                   verifyDeployments: true])
-                }
             }
         }
     }
