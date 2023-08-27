@@ -25,4 +25,6 @@ RUN apt-get update -y -q && \
         git \
         make \
         mariadb-client \
-        postgresql-client 
+        postgresql-client \
+        php-xdebug \
+        phpunit

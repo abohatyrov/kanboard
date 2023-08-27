@@ -27,7 +27,9 @@ pipeline {
         stage('Run tests') {
             steps {
                 container('tests') {
-                    sh 'make test-mysql'
+                    sh 'php -v'
+                    sh 'phpunit --version'
+                    sh 'phpunit --configuration tests/units.mysql.xml'
                 }
             }
         }
