@@ -8,7 +8,6 @@ pipeline {
 
     environment {
         DOCKER_REGISTRY = "kanboard.azurecr.io"
-        DOCKER_REGISTRY_CREDENTIALS = "azure-credentials"
         DOCKER_IMAGE = "kanboard"
         app = ""
     }
@@ -37,7 +36,7 @@ pipeline {
             steps {
                 script {
                     def app = docker.build("${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE}")
-                    docker.withRegistry('https://${env.DOCKER_REGISTRY}', '${env.DOCKER_REGISTRY_CREDENTIALS}') {
+                    docker.withRegistry('https://${env.DOCKER_REGISTRY}', 'azure-credentials') {
                         app.push(${env.BUILD_NUMBER})
                         app.push('latest')
                     }
