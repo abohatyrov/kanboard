@@ -49,6 +49,12 @@ pipeline {
         }  
 
         stage ('Deploy_K8S') {
+            agent {
+                kubernetes {
+                    yamlFile 'k8s/build-pod.yaml'
+                    defaultContainer 'argocd'
+                }
+            }
             steps {
                 withCredentials([string(credentialsId: "argocd-deploy-role", variable: 'ARGOCD_AUTH_TOKEN')]) {
                     sh """
