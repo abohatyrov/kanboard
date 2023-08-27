@@ -25,5 +25,4 @@ RUN apt-get update -y -q && \
         git \
         make \
         mariadb-client \
-        postgresql-client \
-    a2enmod rewrite
+        postgresql-client 

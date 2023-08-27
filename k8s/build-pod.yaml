@@ -44,6 +44,7 @@ spec:
     - name: tests
       image: kanboard/tests:latest
       command:
+        - apt install phpunit -y
         - sleep
       args:
         - infinity
