@@ -11,6 +11,8 @@ pipeline {
         DOCKER_REGISTRY_URL = "https://kanboard.azurecr.io"
         DOCKER_REGISTRY_CREDS = "azure-credentials"
         DOCKER_IMAGE = "kanboard"
+        ARGOCD_SERVER="https://20.62.153.129/"
+        APP_NAME="kanboard"
         app = ""
     }
 
@@ -43,6 +45,17 @@ pipeline {
                         app.push("latest")
                     }
                 }
+            }
+        }  
+
+        stage ('Deploy_K8S') {
+            steps {
+                withCredentials([string(credentialsId: "jenkins-argocd-deploy", variable: 'ARGOCD_AUTH_TOKEN')]) {
+                    sh """
+                    ARGOCD_SERVER=${env.ARGOCD_SERVER} argocd --grpc-web app sync ${env.APP_NAME} --force
+                    ARGOCD_SERVER=${envARGOCD_SERVER} argocd --grpc-web app wait ${env.APP_NAME} --timeout 600
+                    """
+               }
             }
         }
     }
