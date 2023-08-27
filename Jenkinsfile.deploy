@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_REGISTRY = "kanboard.azurecr.io"
+        DOCKER_REGISTRY_URL = "https://kanboard.azurecr.io"
+        DOCKER_REGISTRY_CREDS = "azure-credentials"
+        DOCKER_IMAGE = "kanboard"
+        app = ""
+    }
+
+    stages {
+      stage('Deploy to Kubernetes') {
+        steps {
+          sh 'kubectl apply -f k8s/deployment.yaml'
+        }
+      }
+
+      stage('Create Service') {
+        steps {
+          sh 'kubectl apply -f k8s/service.yaml'
+        }
+      }
+    }
+}
