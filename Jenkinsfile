@@ -47,10 +47,10 @@ pipeline {
         }
 
         stage('Deploy to Kubernetes') {
+            agent any
             steps {
-                step([$class: 'KubernetesEngineBuilder', \
-                  manifestPattern: 'k8s/deployment.yaml', \
-                  verifyDeployments: true])
+                sh "kubectl apply -f k8s/deployment.yaml"
+                sh "kubectl apply -f k8s/service.yaml"
             }
         }
     }
