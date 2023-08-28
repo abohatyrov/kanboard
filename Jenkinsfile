@@ -38,7 +38,7 @@ pipeline {
                     def app = docker.build("${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE}")
                     docker.withRegistry("${env.DOCKER_REGISTRY_URL}", "${env.DOCKER_REGISTRY_CREDS}") {
                         app.push("${env.BUILD_NUMBER}")
-                        app.push("latest")
+                        // app.push("latest")
                     }
                 }
             }

@@ -5,8 +5,6 @@ metadata:
   labels:
     app: kanboard
   namespace: kanboard-stage
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-region: westeurope
 spec:
   selector:
     app: kanboard
