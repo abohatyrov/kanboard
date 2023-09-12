@@ -4,39 +4,39 @@ phases:
   install:
     commands:
       - |
-          dnf update
-          dnf install -y yum-utils
-          yum-config-manager --disable 'remi-php*'
-          yum-config-manager --enable remi-php81
-          dnf update
+          # dnf update
+          # dnf install -y yum-utils
+          # yum-config-manager --disable 'remi-php*'
+          # yum-config-manager --enable remi-php81
+          # dnf update
 
-          dnf install -y php \
-              php-cli \
-              php-common \
-              php-devel \
-              php-pear \
-              php-curl \
-              php-gd \
-              php-mbstring \
-              php-mysqlnd \
-              php-xml \
-              php-openssl \
-              php-pdo \
-              php-json \
-              php-session \
-              php-filter \
-              php-hash \
-              php-ctype \
-              make \
-              gcc \
-              gcc-c++ \
-              autoconf \
-              automake \
-              unzip
+          # dnf install -y php \
+          #     php-cli \
+          #     php-common \
+          #     php-devel \
+          #     php-pear \
+          #     php-curl \
+          #     php-gd \
+          #     php-mbstring \
+          #     php-mysqlnd \
+          #     php-xml \
+          #     php-openssl \
+          #     php-pdo \
+          #     php-json \
+          #     php-session \
+          #     php-filter \
+          #     php-hash \
+          #     php-ctype \
+          #     make \
+          #     gcc \
+          #     gcc-c++ \
+          #     autoconf \
+          #     automake \
+          #     unzip
 
-          pecl install xdebug
-          echo "zend_extension=/usr/lib64/php/modules/xdebug.so" > /etc/php.d/15-xdebug.ini
-          echo "xdebug.remote_enable = 1" >> /etc/php.d/15-xdebug.ini
+          # pecl install xdebug
+          # echo "zend_extension=/usr/lib64/php/modules/xdebug.so" > /etc/php.d/15-xdebug.ini
+          # echo "xdebug.remote_enable = 1" >> /etc/php.d/15-xdebug.ini
 
           curl -sS https://getcomposer.org/installer | php
           mv composer.phar /usr/local/bin/composer
@@ -46,6 +46,8 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Installing composer deps
+      - pwd
+      - ls -la
       - composer.phar install --no-progress
 
   post_build:
