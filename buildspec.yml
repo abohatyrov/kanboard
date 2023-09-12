@@ -1,0 +1,48 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - |
+          apt-get update
+          apt-get install -y software-properties-common
+          LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
+          apt-get update
+
+          apt-get install -y php8.1 \
+              php8.1-cli \
+              php8.1-common \
+              php8.1-curl \
+              php8.1-dev \
+              php8.1-gd \
+              php8.1-mbstring \
+              php8.1-mysql \
+              php8.1-xml \
+              php8.1-openssl \
+              php8.1-pdo \
+              php8.1-pdo-mysql \
+              php8.1-json \
+              php8.1-session \
+              php8.1-filter \
+              php8.1-hash \
+              php8.1-ctype \
+              php-xdebug \
+              php8.1-xdebug \
+              make \
+              unzip
+
+          phpenmod xdebug
+
+          curl -sS https://getcomposer.org/installer | php
+          mv composer.phar /usr/local/bin/composer
+          chmod +x /usr/local/bin/composer
+
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Installing composer deps
+      - composer install --no-progress --no-suggest
+
+  post_build:
+    commands:
+      - echo Build completed on `date`
+
