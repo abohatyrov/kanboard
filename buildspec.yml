@@ -1,32 +1,34 @@
 version: 0.2
+
 phases:
   install:
     commands:
       - |
-          apt-get update
-          apt-get install -y software-properties-common
-          LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
-          apt-get update
+          dnf update
+          dnf install -y yum-utils
+          yum-config-manager --disable 'remi-php*'
+          yum-config-manager --enable remi-php81
+          dnf update
 
-          apt-get install -y php8.1 \
-              php8.1-cli \
-              php8.1-common \
-              php8.1-curl \
-              php8.1-dev \
-              php8.1-gd \
-              php8.1-mbstring \
-              php8.1-mysql \
-              php8.1-xml \
-              php8.1-openssl \
-              php8.1-pdo \
-              php8.1-pdo-mysql \
-              php8.1-json \
-              php8.1-session \
-              php8.1-filter \
-              php8.1-hash \
-              php8.1-ctype \
+          dnf install -y php \
+              php-cli \
+              php-common \
+              php-curl \
+              php-dev \
+              php-gd \
+              php-mbstring \
+              php-mysql \
+              php-xml \
+              php-openssl \
+              php-pdo \
+              php-pdo-mysql \
+              php-json \
+              php-session \
+              php-filter \
+              php-hash \
+              php-ctype \
               php-xdebug \
-              php8.1-xdebug \
+              php-xdebug \
               make \
               unzip
 
@@ -40,7 +42,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Installing composer deps
-      - composer install --no-progress --no-suggest
+      - composer install --no-progress
 
   post_build:
     commands:
